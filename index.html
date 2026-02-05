@@ -11,6 +11,8 @@
             --text-main: #1d1d1f;
             --text-sub: #86868b;
             --accent: #0066cc;
+            --status-green: #34c759;
+            --status-yellow: #ffcc00;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -21,57 +23,77 @@
             line-height: 1.5;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px; /* 稍微加宽一点 */
             margin: 0 auto;
             text-align: center;
         }
-        h1 { font-size: 32px; font-weight: 700; margin-bottom: 10px; }
-        .subtitle { color: var(--text-sub); font-size: 18px; margin-bottom: 40px; }
+        h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .subtitle { color: var(--text-sub); font-size: 18px; margin-bottom: 50px; font-weight: 400; }
         
-        /* App Grid 布局 */
+        /* Grid 布局优化 */
         .app-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
+            /* 调整最小宽度为 300px 以适应小屏手机 */
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
             text-align: left;
         }
         
+        /* 卡片样式优化 */
         .app-card {
             background: var(--card-bg);
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 20px; /* 更圆润一点 */
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04); /* 更柔和的阴影 */
             display: flex;
             align-items: center;
-            transition: transform 0.2s ease;
+            text-decoration: none; /* 去除下划线 */
+            color: inherit; /* 继承文字颜色 */
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.02);
         }
-        .app-card:hover { transform: translateY(-3px); }
         
-        /* 图标占位符 (如果你有图标链接，可以换成 img) */
+        /* 鼠标悬停效果：上浮 + 阴影加深 */
+        .app-card:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        
+        /* 图标样式：换成图片 */
         .app-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 14px;
-            background-color: #eee;
+            width: 72px; /* 图标稍微大一点 */
+            height: 72px;
+            border-radius: 16px;
+            object-fit: cover; /* 防止图片变形 */
             flex-shrink: 0;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            margin-right: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 给图标本身加一点阴影 */
+            background-color: #eee; /* 图片未加载时的占位色 */
         }
-        
-        /* 不同的图标底色 */
-        .icon-blue { background: linear-gradient(135deg, #e0c3fc, #8ec5fc); }
-        .icon-orange { background: linear-gradient(135deg, #fccb90, #d57eeb); }
-        .icon-green { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
-        .icon-dark { background: linear-gradient(135deg, #434343, #000000); color: white; }
 
-        .app-info h3 { margin: 0 0 4px 0; font-size: 17px; }
-        .app-info p { margin: 0; font-size: 14px; color: var(--text-sub); }
+        .app-info { flex: 1; min-width: 0; /* 防止文字溢出 */ }
+        .app-info h3 { margin: 0 0 6px 0; font-size: 17px; font-weight: 600; color: #000; }
+        .app-info p { margin: 0 0 8px 0; font-size: 14px; color: var(--text-sub); line-height: 1.4; }
         
-        .footer { margin-top: 60px; font-size: 13px; color: #999; border-top: 1px solid #e5e5e5; padding-top: 20px; }
-        a { color: var(--accent); text-decoration: none; }
+        /* 状态标签样式 */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .bg-green { background-color: var(--status-green); }
+        .bg-yellow { background-color: var(--status-yellow); }
+        
+        .footer { margin-top: 80px; font-size: 13px; color: #999; border-top: 1px solid #e5e5e5; padding-top: 30px; }
+        .footer a { color: var(--text-sub); text-decoration: underline; }
+        .footer a:hover { color: var(--text-main); }
     </style>
 </head>
 <body>
@@ -82,74 +104,79 @@
 
         <div class="app-grid">
             
-            <!-- App 1: 微光壁纸 -->
-            <div class="app-card">
-                <div class="app-icon icon-blue">✨</div>
+            <!-- App 1: 使用 <a> 标签包裹，点击跳转 -->
+            <a href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%85%89%E5%A3%81%E7%BA%B8-%E6%B2%BB%E6%84%88%E7%B3%BB%E9%AB%98%E6%B8%85%E9%94%81%E5%B1%8F%E6%A1%8C%E9%9D%A2/id6757684682" target="_blank" class="app-card">
+                <!-- 这里替换成你的真实图标图片路径，例如 images/icon1.png -->
+                <img src="https://via.placeholder.com/150/e0c3fc/ffffff?text=Icon" alt="微光壁纸图标" class="app-icon">
                 <div class="app-info">
                     <h3>微光壁纸 (Vista Wallpapers)</h3>
                     <p>治愈系高清壁纸，沉浸式锁屏预览。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.2 可分发</div>
                 </div>
-            </div>
+            </a>
 
-            <!-- App 2: 微光日常 -->
-            <div class="app-card">
-                <div class="app-icon icon-orange">🌅</div>
+            <!-- App 2 -->
+            <a href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%85%89%E6%97%A5%E5%B8%B8/id6756944489" class="app-card">
+                <img src="https://via.placeholder.com/150/fccb90/ffffff?text=Icon" alt="微光日常图标" class="app-icon">
                 <div class="app-info">
                     <h3>微光日常 (Daily Spark)</h3>
                     <p>生活胶囊与扭蛋机，记录每一个闪光瞬间。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.3 可分发</div>
                 </div>
-            </div>
+            </a>
 
-            <!-- App 3: 会聊鸭 -->
-            <div class="app-card">
-                <div class="app-icon icon-dark">❤️</div>
+            <!-- App 3 -->
+            <a href="https://apps.apple.com/cn/app/%E4%BC%9A%E8%81%8A%E9%B8%AD/id6757379697" class="app-card">
+                <img src="https://via.placeholder.com/150/333333/ffffff?text=Icon" alt="会聊鸭图标" class="app-icon">
                 <div class="app-info">
                     <h3>会聊鸭 (Love Tester)</h3>
                     <p>情侣互动小工具，甜蜜升温。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 2.3 可分发</div>
                 </div>
-            </div>
+            </a>
 
-            <!-- App 4: 围堵小猫 -->
-            <div class="app-card">
-                <div class="app-icon icon-green">🐱</div>
+            <!-- App 4 -->
+            <a href="https://apps.apple.com/cn/app/%E5%9B%B4%E5%A0%B5%E5%B0%8F%E7%8C%AB/id1610256963" class="app-card">
+                <img src="https://via.placeholder.com/150/84fab0/ffffff?text=Icon" alt="围堵小猫图标" class="app-icon">
                 <div class="app-info">
                     <h3>围堵小猫 (Cat Garden)</h3>
                     <p>趣味益智游戏，看你能否困住它。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 5.1 可分发</div>
                 </div>
-            </div>
+            </a>
 
-            <!-- App 5: 懒汉天气 -->
-            <div class="app-card">
-                <div class="app-icon icon-blue">☁️</div>
+           
+            <!-- App 6 -->
+            <a href="https://apps.apple.com/cn/app/joypay-%E6%83%85%E7%BB%AA%E8%AE%B0%E8%B4%A6-%E5%BF%AB%E4%B9%90%E6%B8%85%E5%8D%95/id6758039370" class="app-card">
+                <img src="https://via.placeholder.com/150/ffcc00/ffffff?text=Icon" alt="小城记事图标" class="app-icon">
                 <div class="app-info">
-                    <h3>懒汉天气 (Lazy Weather)</h3>
-                    <p>极简天气预报，一目了然。</p>
+                    <h3>JoyPay - 情绪记账 & 快乐清单</h3>
+                    <p>记录每一笔消费的快乐值</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.0 可分发</div>
                 </div>
-            </div>
-
-            <!-- App 6: 小城记事 -->
-            <div class="app-card">
-                <div class="app-icon icon-orange">📝</div>
-                <div class="app-info">
-                    <h3>小城记事 (City Notes)</h3>
-                    <p>记录生活琐碎，留住城市记忆。</p>
-                </div>
-            </div>
+            </a>
             
-             <!-- App 7: 会变长的杆 -->
-             <div class="app-card">
-                <div class="app-icon icon-dark">🏃</div>
+           
+            
+            <!-- App 8: 示例一个“准备提交”状态 -->
+            <a href="https://apps.apple.com/cn/app/%E5%A3%81%E7%BA%B8%E5%B9%BF%E5%9C%BA/id1669142995" class="app-card">
+                <img src="https://via.placeholder.com/150/ff6b6b/ffffff?text=New" alt="壁纸广场图标" class="app-icon">
                 <div class="app-info">
-                    <h3>会变长的杆 (Growing Pole)</h3>
-                    <p>休闲跑酷游戏，挑战反应极限。</p>
+                    <h3>壁纸广场</h3>
+                    <p>更多精彩壁纸发现。</p>
+                    <div class="status-badge"><span class="status-dot bg-yellow"></span>准备提交</div>
                 </div>
-            </div>
+            </a>
 
         </div>
 
         <div class="footer">
             <p>联系我们 / Contact: <a href="mailto:3037778949@qq.com">3037778949@qq.com</a></p>
-            <p>© 2026 Hairui Studio. All rights reserved.</p>
+            <p>
+                <!-- 这里可以加隐私政策链接，上架 App Store 必须要有 -->
+                <a href="#">隐私政策 (Privacy Policy)</a> &nbsp;|&nbsp; 
+                © 2026 Hairui Studio. All rights reserved.
+            </p>
         </div>
     </div>
 
