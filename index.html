@@ -19,161 +19,266 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 30px 20px;
+            padding: 40px 20px;
             line-height: 1.5;
         }
         .container {
-            max-width: 900px; /* 稍微加宽一点 */
+            max-width: 1200px;
             margin: 0 auto;
             text-align: center;
         }
-        h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
-        .subtitle { color: var(--text-sub); font-size: 18px; margin-bottom: 50px; font-weight: 400; }
+        h1 { font-size: 42px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+        .subtitle { color: var(--text-sub); font-size: 20px; margin-bottom: 60px; font-weight: 400; max-width: 600px; margin-left: auto; margin-right: auto; }
         
-        /* Grid 布局优化 */
         .app-grid {
             display: grid;
-            /* 调整最小宽度为 300px 以适应小屏手机 */
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
             text-align: left;
         }
         
-        /* 卡片样式优化 */
         .app-card {
             background: var(--card-bg);
-            border-radius: 20px; /* 更圆润一点 */
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04); /* 更柔和的阴影 */
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             display: flex;
             align-items: center;
-            text-decoration: none; /* 去除下划线 */
-            color: inherit; /* 继承文字颜色 */
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.02);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.03);
         }
         
-        /* 鼠标悬停效果：上浮 + 阴影加深 */
         .app-card:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         
-        /* 图标样式：换成图片 */
         .app-icon {
-            width: 72px; /* 图标稍微大一点 */
-            height: 72px;
-            border-radius: 16px;
-            object-fit: cover; /* 防止图片变形 */
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            object-fit: cover;
             flex-shrink: 0;
-            margin-right: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 给图标本身加一点阴影 */
-            background-color: #eee; /* 图片未加载时的占位色 */
+            margin-right: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background-color: #fff;
         }
 
-        .app-info { flex: 1; min-width: 0; /* 防止文字溢出 */ }
-        .app-info h3 { margin: 0 0 6px 0; font-size: 17px; font-weight: 600; color: #000; }
-        .app-info p { margin: 0 0 8px 0; font-size: 14px; color: var(--text-sub); line-height: 1.4; }
+        .app-info { flex: 1; min-width: 0; }
+        .app-info h3 { margin: 0 0 4px 0; font-size: 16px; font-weight: 600; color: #000; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .app-info p { margin: 0 0 6px 0; font-size: 13px; color: var(--text-sub); line-height: 1.3; height: 34px; overflow: hidden; }
         
-        /* 状态标签样式 */
         .status-badge {
             display: inline-flex;
             align-items: center;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-sub);
+            font-weight: 500;
         }
         .status-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             margin-right: 6px;
         }
-        .bg-green { background-color: var(--status-green); }
+        .bg-green { background-color: var(--status-green); box-shadow: 0 0 4px var(--status-green); }
         .bg-yellow { background-color: var(--status-yellow); }
         
-        .footer { margin-top: 10px; font-size: 13px; color: #999; border-top: 1px solid #e5e5e5; padding-top: 30px; }
-        .footer a { color: var(--text-sub); text-decoration: underline; }
-        .footer a:hover { color: var(--text-main); }
+        .footer { margin-top: 60px; font-size: 13px; color: #999; border-top: 1px solid #e5e5e5; padding-top: 40px; }
+        .footer a { color: var(--text-sub); text-decoration: none; margin: 0 10px; }
+        .footer a:hover { color: var(--text-main); text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 32px; }
+            .app-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Hairui Studio</h1>
-        <p class="subtitle">独立开发，热爱创造。<br>Indie Developer crafting useful & fun apps.</p>
+        <p class="subtitle">独立开发，热爱创造。目前共有 17 款应用在架或准备中。</p>
 
         <div class="app-grid">
             
-            <!-- App 1: 使用 <a> 标签包裹，点击跳转 -->
-            <a href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%85%89%E5%A3%81%E7%BA%B8-%E6%B2%BB%E6%84%88%E7%B3%BB%E9%AB%98%E6%B8%85%E9%94%81%E5%B1%8F%E6%A1%8C%E9%9D%A2/id6757684682" target="_blank" class="app-card">
-                <!-- 这里替换成你的真实图标图片路径，例如 images/icon1.png -->
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/4e/09/39/4e0939df-ca3f-3da0-4510-e78d7bbfe147/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/400x400ia-75.webp" alt="微光壁纸图标" class="app-icon">
+            <!-- 1. TimeGlide -->
+            <a href="https://apps.apple.com/cn/app/timeglide-%E6%9E%81%E7%AE%80%E6%97%B6%E5%8C%BA%E4%B8%8E%E8%B7%A8%E5%9B%BD%E4%BC%9A%E8%AE%AE%E6%8E%92%E6%9C%9F/id6763831629" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/dc/f5/49/dcf54962-71b1-2580-1787-b69dee62b02f/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="app-icon">
                 <div class="app-info">
-                    <h3>微光壁纸 (Vista Wallpapers)</h3>
-                    <p>治愈系高清壁纸，沉浸式锁屏预览。</p>
-                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.5 可分发</div>
-                </div>
-            </a>
-
-           
-            <!-- App 3 -->
-            <a href="https://apps.apple.com/cn/app/%E4%BC%9A%E8%81%8A%E9%B8%AD/id6757379697" class="app-card">
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/88/50/50/8850506c-c4ee-a7ab-5bd6-1203ebc0cd94/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/400x400ia-75.webp" alt="会聊鸭图标" class="app-icon">
-                <div class="app-info">
-                    <h3>会聊鸭 (Love Tester)</h3>
-                    <p>情侣互动小工具，甜蜜升温。</p>
-                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 3.0 可分发</div>
-                </div>
-            </a>
-           <a href="https://apps.apple.com/cn/app/%E6%98%A0%E8%A8%80-%E6%9E%81%E7%AE%80%E6%82%AC%E6%B5%AE%E6%8F%90%E8%AF%8D%E5%99%A8/id6758967070" class="app-card">
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/95/17/eb/9517ebfa-0bf8-d930-8874-b6f03494c6a3/AppIcon-0-0-1x_U007epad-0-1-85-220.png/400x400ia-75.webp" alt="映言图标" class="app-icon">
-                <div class="app-info">
-                    <h3>映言 - 极简悬浮提词器 (Yingyan)</h3>
-                    <p>优雅的演讲创作与录制助手。</p>
+                    <h3>TimeGlide</h3>
+                    <p>跨时区规划与协作利器。</p>
                     <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.1 可分发</div>
                 </div>
             </a>
 
-            <!-- App 4 -->
-            <a href="https://apps.apple.com/cn/app/%E5%9B%B4%E5%A0%B5%E5%B0%8F%E7%8C%AB/id1610256963" class="app-card">
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2a/33/54/2a33540a-6170-6730-9b48-89c21222dc60/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/400x400ia-75.webp?text=Icon" alt="围堵小猫图标" class="app-icon">
+            <!-- 2. 会聊鸭 -->
+            <a href="https://apps.apple.com/cn/app/%E4%BC%9A%E8%81%8A%E9%B8%AD/id6757379697" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/88/50/50/8850506c-c4ee-a7ab-5bd6-1203ebc0cd94/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
                 <div class="app-info">
-                    <h3>围堵小猫 (Cat Garden)</h3>
-                    <p>趣味益智游戏，看你能否困住它。</p>
-                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 5.1 可分发</div>
+                    <h3>会聊鸭 - AI 恋爱助手</h3>
+                    <p>AI 驱动的社交与情感辅助工具。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 4.0 可分发</div>
                 </div>
             </a>
-         <!-- App 2 -->
-            <a href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%85%89%E6%97%A5%E5%B8%B8/id6756944489" class="app-card">
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/07/6c/60/076c604e-7ba5-27a9-4c3a-627c0a64e1d2/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/400x400ia-75.webp" alt="微光日常图标" class="app-icon">
+
+            <!-- 3. Subscription Assassin -->
+            <a href="#" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/37/26/5d/37265d6a-543a-9694-82a9-052495b5c92c/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
                 <div class="app-info">
-                    <h3>微光日常 (Daily Spark)</h3>
-                    <p>生活胶囊与扭蛋机，记录每一个闪光瞬间。</p>
+                    <h3>Subscription Assassin</h3>
+                    <p>终结无效订阅，掌控财务支出。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.0 可分发</div>
+                </div>
+            </a>
+
+            <!-- 4. FlowTrack -->
+            <a href="#" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/21/d0/0d/21d00d9e-1175-19e3-2680-e88514930985/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>FlowTrack - 日常习惯</h3>
+                    <p>极简的习惯追踪与日常记录。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.6 可分发</div>
+                </div>
+            </a>
+
+            <!-- 5. 小城记事 -->
+            <a href="#" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f5/7b/28/f57b28c3-6e04-bdf5-facb-93640833e99c/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.png/400x400ia-75.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>小城记事</h3>
+                    <p>用文字和图片记录生活的每一站。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.5 可分发</div>
+                </div>
+            </a>
+
+            <!-- 6. 映言 -->
+            <a href="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/56/0e/2a/560e2ab5-c6bb-e0f0-d70e-0de47f0521c9/Placeholder.mill/400x400bb-75.webp" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/95/17/eb/9517ebfa-0bf8-d930-8874-b6f03494c6a3/AppIcon-0-0-1x_U007epad-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>映言 - 极简悬浮提词器</h3>
+                    <p>Vlog口播与短视频必备，支持画中画悬浮录像。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 2.1 可分发</div>
+                </div>
+            </a>
+
+            <!-- 7. SnapSweep -->
+            <a href="https://apps.apple.com/cn/app/snapsweep-photo-cleaner/id6768933652" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a6/a8/af/a6a8af80-0300-82ea-a599-d4082d619ff5/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>SnapSweep: Cleaner</h3>
+                    <p>快速清理重复照片与无用屏幕截图。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.1 可分发</div>
+                </div>
+            </a>
+
+            <!-- 8. 微光壁纸 -->
+            <a href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%85%89%E5%A3%81%E7%BA%B8-%E6%B2%BB%E6%84%88%E7%B3%BB%E9%AB%98%E6%B8%85%E9%94%81%E5%B1%8F%E6%A1%8C%E9%9D%A2/id6757684682" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/4e/09/39/4e0939df-ca3f-3da0-4510-e78d7bbfe147/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>微光壁纸 (Vista)</h3>
+                    <p>治愈系高清锁屏与美学桌面。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.6 可分发</div>
+                </div>
+            </a>
+
+            <!-- 9. JoyPay -->
+            <a href="https://apps.apple.com/cn/app/joypay-%E6%83%85%E7%BB%AA%E8%AE%B0%E8%B4%A6-%E5%BF%AB%E4%B9%90%E6%B8%85%E5%8D%95/id6758039370" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/4f/d1/56/4fd15696-64d2-6e08-b789-1a6a19d092f2/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>JoyPay - 情绪记账</h3>
+                    <p>记录每一笔消费背后的快乐值。</p>
                     <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.3 可分发</div>
                 </div>
             </a>
 
-           
-            <!-- App 6 -->
-            <a href="https://apps.apple.com/cn/app/joypay-%E6%83%85%E7%BB%AA%E8%AE%B0%E8%B4%A6-%E5%BF%AB%E4%B9%90%E6%B8%85%E5%8D%95/id6758039370" class="app-card">
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/4f/d1/56/4fd15696-64d2-6e08-b789-1a6a19d092f2/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/400x400ia-75.webp?text=Icon" alt="小城记事图标" class="app-icon">
+            <!-- 10. LastCup -->
+            <a href="#" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0d/1d/0d/0d1d0d9e-1175-19e3-2680-e88514930985/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
                 <div class="app-info">
-                    <h3>JoyPay - 情绪记账 & 快乐清单</h3>
-                    <p>记录每一笔消费的快乐值</p>
-                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.0 可分发</div>
+                    <h3>LastCup - Caffeine</h3>
+                    <p>科学追踪咖啡因摄入与睡眠影响。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.2 可分发</div>
                 </div>
             </a>
-            
-           
-            
-        
+
+            <!-- 11. WaveFast -->
+            <a href="#" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2d/2d/2d/2d2d0d9e-1175-19e3-2680-e88514930985/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>WaveFast</h3>
+                    <p>简约优雅的断食追踪工具。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.1 可分发</div>
+                </div>
+            </a>
+
+            <!-- 12. 懒汉天气 -->
+            <a href="#" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fc/03/6d/fc036d58-3b37-ad18-a103-74eb44fd4de0/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>懒汉天气</h3>
+                    <p>只告诉你最重要的天气信息。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.6 可分发</div>
+                </div>
+            </a>
+
+            <!-- 13. 壁纸广场
+            <a href="#" class="app-card">
+                <img src="https://via.placeholder.com/128?text=WP" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>壁纸广场</h3>
+                    <p>海量创作者分享的高质量背景图。</p>
+                    <div class="status-badge"><span class="status-dot bg-yellow"></span>iOS 2.0 准备提交</div>
+                </div>
+            </a> -->
+
+            <!-- 14. Daily Spark -->
+            <a href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%85%89%E6%97%A5%E5%B8%B8/id6756944489" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/07/6c/60/076c604e-7ba5-27a9-4c3a-627c0a64e1d2/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>Daily Spark - Gacha</h3>
+                    <p>将任务变成抽卡的快乐记录器。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.4 可分发</div>
+                </div>
+            </a>
+
+            <!-- 15. 围堵小猫 -->
+            <a href="https://apps.apple.com/cn/app/%E5%9B%B4%E5%A0%B5%E5%B0%8F%E7%8C%AB/id1610256963" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2a/33/54/2a33540a-6170-6730-9b48-89c21222dc60/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/230x0w.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>围堵小猫</h3>
+                    <p>经典的策略益智小游戏。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 5.4 可分发</div>
+                </div>
+            </a>
+
+            <!-- 16. 长杆冲刺 -->
+            <a href="#" class="app-card">
+                <img src="https://via.placeholder.com/128?text=Pole" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>长杆冲刺</h3>
+                    <p>极具挑战性的街机动作游戏。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.4 可分发</div>
+                </div>
+            </a>
+
+            <!-- 17. 晚安舱 -->
+            <a href="https://apps.apple.com/cn/app/%E6%99%9A%E5%AE%89%E8%88%B1/id6761326999" class="app-card">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/3f/b9/3b/3fb93bd6-7413-4c3f-9eeb-25b897469948/AppIcon-0-0-1x_U007ephone-0-1-P3-85-220.png/400x400ia-75.webp" alt="Icon" class="app-icon">
+                <div class="app-info">
+                    <h3>晚安舱</h3>
+                    <p>助眠白噪音与睡眠质量分析。</p>
+                    <div class="status-badge"><span class="status-dot bg-green"></span>iOS 1.2 可分发</div>
+                </div>
+            </a>
 
         </div>
 
         <div class="footer">
             <p>联系我们 / Contact: <a href="mailto:3037778949@qq.com">3037778949@qq.com</a></p>
             <p>
-                <!-- 这里可以加隐私政策链接，上架 App Store 必须要有 -->
                 <a href="#">隐私政策 (Privacy Policy)</a> &nbsp;|&nbsp; 
                 © 2026 Hairui Studio. All rights reserved.
             </p>
